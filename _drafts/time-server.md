@@ -39,34 +39,38 @@ Then my Rasberry PI is ready to boot and install rasbian. Installation takes som
 --
 ## Configuration GPSD
 Content of /etc/default/gpsd 
+`
+# Default settings for the gpsd init script and the hotplug wrapper.
 
-  # Default settings for the gpsd init script and the hotplug wrapper.
+# Start the gpsd daemon automatically at boot time
+START_DAEMON="true"
 
-  # Start the gpsd daemon automatically at boot time
-  START_DAEMON="true"
+# Use USB hotplugging to add new USB devices automatically to the daemon
+USBAUTO="true"
 
-  # Use USB hotplugging to add new USB devices automatically to the daemon
-  USBAUTO="true"
-
-  # Devices gpsd should collect to at boot time.
-  # They need to be read/writeable, either by user gpsd or the group dialout. 
+# Devices gpsd should collect to at boot time.
+# They need to be read/writeable, either by user gpsd or the group dialout. 
   
-  DEVICES="/dev/ttyS0 /dev/pps0"
+DEVICES="/dev/ttyS0 /dev/pps0"
 
-  # Other options you want to pass to gpsd
-  GPSD_OPTIONS="-n"
-
+# Other options you want to pass to gpsd
+GPSD_OPTIONS="-n"
+`
 ## Configuration NTP 
 Content of /etc/ntp.conf
-  tos mindist 0.5
-  #GPS NEMEA sentences. time1 value tuned for my local setup. 
+
+`
+# Extra setting to allow for the jitter in transport time of the NEMEA output
+tos mindist 0.5
   
-  server 127.127.28.0 minpoll 4 maxpoll 4 iburst prefer
-  fudge 127.127.28.0 time1 0.107 stratum 14 refid GPSb
-  # extra redundant GPSD pps logging 
-  server 127.127.28.2 minpoll 4 maxpoll 4
-  fudge 127.127.28.2 stratum 1 refid GPSd
-  # flag3 1 to enable kernel PPS 
-  # flag4 1 added for logging 
-  server 127.127.22.0 minpoll 4 maxpoll 4
-  fudge 127.127.22.0  refid PPS flag3 1 flag4 1 stratum 1
+#GPS NEMEA sentences. time1 value tuned for my local setup. 
+server 127.127.28.0 minpoll 4 maxpoll 4 iburst prefer
+fudge 127.127.28.0 time1 0.107 stratum 14 refid GPSb
+# extra redundant GPSD pps logging 
+server 127.127.28.2 minpoll 4 maxpoll 4
+fudge 127.127.28.2 stratum 1 refid GPSd
+# flag3 1 to enable kernel PPS 
+# flag4 1 added for logging 
+server 127.127.22.0 minpoll 4 maxpoll 4
+fudge 127.127.22.0  refid PPS flag3 1 flag4 1 stratum 1
+` 
