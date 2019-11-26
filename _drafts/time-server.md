@@ -5,8 +5,7 @@ categories: [blog ]
 tags: [rasberry pi, ntpd, gps]
 ---
 # A Rasberry PI 4 timeserver. 
-I have created a timeserver serving my home network the time via the NTP protocol. It uses a GPS receiver to get a very acurate, one part per billion deviation time. A Rasberry PI is a nice small computer that runs Linux and thus can run the ntp server 
-I used a configuration that does not need any internet server, so this can be used to create a time server in a network that is not connected to the internet. 
+I have created a timeserver serving my home network the time via the NTP protocol. The goal is to create a accurate timeserver that does not need the internet. Because if you do use the internet why not use the internet provided ntp servers. There are quite a lot of  setups where internet connectivity is intermittant or not allowed due to security reasons.  I used a GPS receiver to receive time information(UTC) and via the PPS signal also a frequency standard. A Rasberry PI is a nice small computer that runs Linux and thus can run the ntp server. 
 
 
 -- 
@@ -73,4 +72,7 @@ fudge 127.127.28.2 stratum 1 refid GPSd
 # flag4 1 added for logging 
 server 127.127.22.0 minpoll 4 maxpoll 4
 fudge 127.127.22.0  refid PPS flag3 1 flag4 1 stratum 1
+``` 
+# Chrony configuration 
+Chrony turned out to be much more stable in an disconnected (no internet time servers setting). 
 ``` 
