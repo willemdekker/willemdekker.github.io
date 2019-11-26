@@ -39,7 +39,7 @@ Then my Rasberry PI is ready to boot and install rasbian. Installation takes som
 --
 ## Configuration GPSD
 Content of /etc/default/gpsd 
-`
+```
 # Default settings for the gpsd init script and the hotplug wrapper.
 
 # Start the gpsd daemon automatically at boot time
@@ -55,11 +55,11 @@ DEVICES="/dev/ttyS0 /dev/pps0"
 
 # Other options you want to pass to gpsd
 GPSD_OPTIONS="-n"
-`
+```
 ## Configuration NTP 
 Content of /etc/ntp.conf
 
-`
+```
 # Extra setting to allow for the jitter in transport time of the NEMEA output
 tos mindist 0.5
   
@@ -73,4 +73,4 @@ fudge 127.127.28.2 stratum 1 refid GPSd
 # flag4 1 added for logging 
 server 127.127.22.0 minpoll 4 maxpoll 4
 fudge 127.127.22.0  refid PPS flag3 1 flag4 1 stratum 1
-` 
+``` 
