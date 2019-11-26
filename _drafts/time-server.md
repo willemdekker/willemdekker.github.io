@@ -75,4 +75,39 @@ fudge 127.127.22.0  refid PPS flag3 1 flag4 1 stratum 1
 ``` 
 # Chrony configuration 
 Chrony turned out to be much more stable in an disconnected (no internet time servers setting). 
+Configuration file  /etc/chrony/chrony.conf 
 ``` 
+# Welcome to the chrony configuration file. See chrony.conf(5) for more
+# information about usuable directives.
+#pool 2.debian.pool.ntp.org iburst
+
+# This directive specify the location of the file containing ID/key pairs for
+# NTP authentication.
+keyfile /etc/chrony/chrony.keys
+
+# This directive specify the file into which chronyd will store the rate
+# information.
+driftfile /var/lib/chrony/chrony.drift
+
+# Uncomment the following line to turn logging on.
+#log tracking measurements statistics
+
+# Log files location.
+logdir /var/log/chrony
+
+# Stop bad estimates upsetting machine clock.
+maxupdateskew 100.0
+
+# This directive enables kernel synchronisation (every 11 minutes) of the
+# real-time clock. Note that it can’t be used along with the 'rtcfile' directive.
+rtcsync
+
+# Step the system clock instead of slewing it if the adjustment is larger than
+# one second, but only in the first three clock updates.
+makestep 1 3
+
+refclock SHM 0  delay 0.0 offset 0.107 refid NEMA stratum 14  noselect
+
+# SHM2 from gpsd (if present) is from the kernel PPS_LDISC
+# module.  It includes PPS and will be accurate to a few ns
+refclock SHM 2 delay 0.0 refid PPS stratum 1 prefer
