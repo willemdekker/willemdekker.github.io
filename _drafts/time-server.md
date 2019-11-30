@@ -23,6 +23,11 @@ I used the following equipment
 First build together all the parts. Make sure the GPS hat is on top of the Rasberry PI board with the GPS chip top side. 
 Insert the SD card in the slot and connect ethernet and power. The Rasberry PI should power up. There is only one thing I did not connect the PI to a Screen and Keyboard. It was waiting in the installation program. So how to continue. 
 
+Software installation . 
+
+I installed Etcher to write the Raspbian Image on de SD card. I used a 64GB A1 qualified Micro SDXC card from SanDisk. 
+I used the minimal Rasbian image. 
+
 You can make the installation screen go to VNC. 
 How: Edit the first partition of the SD card (the one with noobs) and edit the recovery.cmdline file. 
 Add 'vncinstall' in it. 
@@ -33,7 +38,19 @@ Also add the file 'ssh' in the same root directory of NOOBS to enable ssh.
 
 Then my Rasberry PI is ready to boot and install rasbian. Installation takes some time (15 minutes or so). 
 
+## user account configuration
 
+## addition software installation
+## update of the raspian software 
+
+
+After installation, check if the GPS receiver works. 
+
+
+## Configuration of the mublox gps receiver
+To configure and check the gps receiver, I used ser2net. This sends the information received over the serial port to the network.
+I installed windows software from Ublox called u-centre on a windows machine. From their I could check and configure the GPS. 
+I configured the gps for stationary mode. 
 
 --
 ## Configuration GPSD
@@ -111,3 +128,6 @@ refclock SHM 0  delay 0.0 offset 0.107 refid NEMA stratum 14  noselect
 # SHM2 from gpsd (if present) is from the kernel PPS_LDISC
 # module.  It includes PPS and will be accurate to a few ns
 refclock SHM 2 delay 0.0 refid PPS stratum 1 prefer
+```
+# References: 
+https://ava.upuaut.net/?p=951
