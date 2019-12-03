@@ -28,24 +28,15 @@ Software installation .
 I installed Etcher to write the Raspbian Image on de SD card. I used a 64GB A1 qualified Micro SDXC card from SanDisk. 
 I used the minimal Rasbian image. 
 
-You can make the installation screen go to VNC. 
-How: Edit the first partition of the SD card (the one with noobs) and edit the recovery.cmdline file. 
-Add 'vncinstall' in it. 
-Mine is now:
-  quiet ramdisk_size=32768 root=/dev/ram0 init=/init vt.cur_default=1 elevator=deadline sdhci.debug_quirks2=4 vncinstall forcetrigger
-
-Also add the file 'ssh' in the same root directory of NOOBS to enable ssh. 
-
+Also add the file 'ssh' in the same root partition (an FAT partition). 
 Then my Rasberry PI is ready to boot and install rasbian. Installation takes some time (15 minutes or so). 
 
 ## user account configuration
-
+After the rasberry pi boots up please change the password of the default pi user. 
 ## addition software installation
-## update of the raspian software 
-
-
-After installation, check if the GPS receiver works. 
-
+Install the necessary software, chrony and gpsd. 
+## update of the raspbian software 
+Update raspbian software (apt-get update, apt-get upgrade). 
 
 ## Configuration of the mublox gps receiver
 To configure and check the gps receiver, I used ser2net. This sends the information received over the serial port to the network.
@@ -72,7 +63,8 @@ DEVICES="/dev/ttyS0 /dev/pps0"
 # Other options you want to pass to gpsd
 GPSD_OPTIONS="-n"
 ```
-## Configuration NTP 
+## Configuration NTP
+I tried ntp, and it does work, but in an isolated setting I had some issues with it. Below the configuration I used, but I would recommend to use chrony. 
 Content of /etc/ntp.conf
 
 ```
